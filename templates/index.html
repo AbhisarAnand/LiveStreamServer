@@ -74,12 +74,23 @@
             document.getElementById('live-stream').src = '/video_feed';
             updateInfo();
         }
-
+    
         function updateInfo() {
-            // This function can be used to dynamically update the information box
-            document.getElementById('info-content').textContent = 'Updated information at ' + new Date().toLocaleTimeString();
-            setTimeout(updateInfo, 5000); // Update information every 5 seconds
+            // Fetch server information
+            fetch('/server_info')
+                .then(response => response.json())
+                .then(data => {
+                    // Update information box
+                    document.getElementById('info-content').innerHTML = `
+                        <p>Updated information at ${new Date().toLocaleTimeString()}</p>
+                        <p>FPS: ${data.fps}</p>
+                        <p>Resolution: ${data.resolution[0]}x${data.resolution[1]}</p>
+                    `;
+                })
+                .catch(error => console.error('Error fetching server info:', error));
+    
+            setTimeout(updateInfo, 500); // Update information every .5 seconds
         }
-    </script>
+    </script>    
 </body>
 </html>
