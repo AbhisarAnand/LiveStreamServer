@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        #video-container, #info-box {
+            width: 640px;
+            margin: 10px;
+        }
+        #video-container img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+        }
+        #info-box {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            #content {
+                flex-direction: row;
+            }
+        }
+        @media (max-width: 767px) {
+            #content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="landing-page">
+        <button onclick="showLiveStream()">Start Live Stream</button>
+    </div>
+    <div id="content" style="display: none;">
+        <div id="video-container">
+            <img id="live-stream" src="" alt="Live Stream">
+        </div>
+        <div id="info-box">
+            <h2>Information</h2>
+            <p id="info-content">This is some dynamic information.</p>
+        </div>
+    </div>
+
+    <script>
+        function showLiveStream() {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('content').style.display = 'flex';
+            document.getElementById('live-stream').src = '/video_feed';
+            updateInfo();
+        }
+
+        function updateInfo() {
+            // This function can be used to dynamically update the information box
+            document.getElementById('info-content').textContent = 'Updated information at ' + new Date().toLocaleTimeString();
+            setTimeout(updateInfo, 5000); // Update information every 5 seconds
+        }
+    </script>
+</body>
+</html>
